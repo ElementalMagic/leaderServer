@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var express = require('express');
+var redirApp = express();
+var debug = require('debug')('server:server');
+var https = require('https');
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
+if(!process.env.DEV) {
+
+
+}
+/*const options = {
+    key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/privkey.pem'), 'utf-8'),
+    cert: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/cert.pem'), 'utf-8'),
+    ca: [fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/chain.pem'), 'utf-8')]
+};*/
+var port = normalizePort(process.env.PORT || '443');
+app.set('port', port);
+redirApp.set('port', normalizePort(80));
+redirApp.get('*', (req,res) => {
+   res.status(301).redirect('https://lenfincentr.ru'+req.originalUrl);
+});
+
+var server, server2;
+//server = https.createServer(options, app).listen(port);
+//server2 = http.createServer(redirApp).listen(80);
+if(process.env.DEV){
+     server = http.createServer(app).listen(80);
+} else {
+
+}
+
+
+
+//server.listen(port);
+server.on('error', onError);
+//server2.on('listening', onListening);
+server.on('listening', onListening);
+
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    console.log('Listening on ' + bind);
+}
