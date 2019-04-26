@@ -17,9 +17,9 @@ if(!process.env.DEV) {
 
 }
 const options = {
-    key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/privkey.pem'), 'utf-8'),
-    cert: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/cert.pem'), 'utf-8'),
-    ca: [fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/chain.pem'), 'utf-8')]
+    key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/zkbi-lider.ru/privkey.pem'), 'utf-8'),
+    cert: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/zkbi-lider.ru/cert.pem'), 'utf-8'),
+    ca: [fs.readFileSync(path.resolve('../../etc/letsencrypt/live/zkbi-lider.ru/chain.pem'), 'utf-8')]
 };
 var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
