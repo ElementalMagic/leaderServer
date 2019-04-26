@@ -16,25 +16,25 @@ if(!process.env.DEV) {
 
 
 }
-/*const options = {
+const options = {
     key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/privkey.pem'), 'utf-8'),
     cert: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/cert.pem'), 'utf-8'),
     ca: [fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/chain.pem'), 'utf-8')]
-};*/
+};
 var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 redirApp.set('port', normalizePort(80));
 redirApp.get('*', (req,res) => {
-   res.status(301).redirect('https://lenfincentr.ru'+req.originalUrl);
+   res.status(301).redirect('https://zkbi-lider.ru'+req.originalUrl);
 });
 
 var server, server2;
-//server = https.createServer(options, app).listen(port);
-//server2 = http.createServer(redirApp).listen(80);
-if(process.env.DEV){
+
+if(process.env.DEV === true){
      server = http.createServer(app).listen(80);
 } else {
-
+    server = https.createServer(options, app).listen(port);
+    server2 = http.createServer(redirApp).listen(80);
 }
 
 
