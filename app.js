@@ -35,8 +35,8 @@ app.use(cookieParser());
 });*/
 
 
-app.get('/credit', (req, res) => {
-    res.status(200).sendFile(path.resolve('../leader/credit.html'))
+app.get('/projects', (req, res) => {
+    res.status(200).sendFile(path.resolve('../leader/projects.html'))
 });
 
 
@@ -69,9 +69,9 @@ app.get("/images/:id", function (req, res, next) {
 app.use("/docs", express.static("docs"));
 
 app.use('/api/order', orderRouter);
-app.use('/api/login', loginRouter);
+/*app.use('/api/login', loginRouter);
 app.use('/api/review', reviewRouter);
-app.use('/api/feedback', feedbackRouter);
+app.use('/api/feedback', feedbackRouter);*/
 app.use('/404', (req, res) => {
     res.status(404).sendFile(path.resolve('../leader/NotFound.html'))
 });
@@ -83,6 +83,6 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('*', (req, res) => {
-    res.status(404).redirect('https://lenfincentr.ru/404');
+    res.status(404).redirect('https://zkbi-lider.ru/404');
 });
 module.exports = app;
