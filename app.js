@@ -38,6 +38,9 @@ app.use(cookieParser());
 app.get('/projects', (req, res) => {
     res.status(200).sendFile(path.resolve('../leader/projects.html'))
 });
+app.get('/about', (req, res) => {
+    res.status(200).sendFile(path.resolve('../leader/about.html'))
+});
 
 
 app.get('*', function (req, res, next) {
